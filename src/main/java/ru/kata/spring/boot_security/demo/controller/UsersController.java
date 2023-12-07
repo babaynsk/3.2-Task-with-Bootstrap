@@ -52,13 +52,10 @@ public class UsersController {
 
     @PutMapping("/saveUpdatedUser/{id}")
     public String saveUpdatedUser(@ModelAttribute("updatedUser") User updatedUser, @PathVariable("id") int id) {
-        // Проверка, что ID в пути соответствует ID в объекте
         if (updatedUser.getId() != id) {
-            // Обработка несоответствия, например, перенаправление на страницу ошибки
             return "redirect:/error";
         }
 
-        // Ваш код обновления пользователя
         userService.save(updatedUser);
         return "redirect:/admin";
     }
