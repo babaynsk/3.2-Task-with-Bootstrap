@@ -1,28 +1,82 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>UserInfo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Add new User</title>
+    <style>
+        .bs .row>.col,
+        .bs .row>[class^="col-"] {
+            padding-top: .75rem;
+            padding-bottom: .30rem;
+        }
+    </style>
 </head>
-<h2>User Info</h2>
-<br>
-<form method="POST" th:action="@{/saveUser}" th:object="${user}">
-    <label for="name">Name</label>
-    <input name="name" type="text" th:field="*{name}" id="name">
+<body>
+<nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/admin">
+            <span th:text="${authUser.getEmail()}"></span>
+            with roles:
+            <span th:each="role : ${authUser.getRoles()}" th:text="${role.getAuthority().replace('ROLE_', '') + ' '}"></span>
+        </a>
+        <div class="navbar navbar-dark bg-dark shadow-sm d-flex justify-content-end">
+            <a href="/logout" class="navbar-brand d-flex align-items-center">
+                <strong>Logout</strong>
+            </a>
+        </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <nav class="nav flex-column">
+                <a class="nav-link active" href="/admin">Admin</a>
+                <a class="nav-link" href="/user">User</a>
+            </nav>
+        </div>
+        <div class="col-md-10 bg-light">
+            <h1>Admin panel</h1>
+            <br>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link " href="/admin">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/addNewUser">New User</a>
+                </li>
+            </ul>
+            <h5 class="font-weight-bold mt-4">Add new User</h5>
+            <div class="container text-center">
+<form method="POST" th:action="@{/saveUser}" th:object="${user}" class="col-md-4 mx-auto">
+    <p class="text-center font-weight-bold">First Name</p>
+    <input  class="form-control" name="firstName" type="text" th:field="*{firstName}" id="firstName">
+    <p class="text-center font-weight-bold">Last Name</p>
+    <input  class="form-control" name="lastName" type="text" th:field="*{lastName}" id="lastName">
+    <p class="text-center font-weight-bold">Age</p>
+    <input class="form-control" name="age" type="text" th:field="*{age}" id="age">
+    <p class="text-center font-weight-bold">Email</p>
+    <input class="form-control" name="email" type="text" th:field="*{email}" id="email">
+
+    <p class="text-center font-weight-bold">Password</p>
+    <input class="form-control" name="password" type="password" th:field="*{password}" id="password">
+
+    <p class="text-center font-weight-bold">Role</p>
+    <select class="form-control" name="roles" th:field="*{roles}" multiple>
+        <option value="1">ADMIN</option>
+        <option value="2">USER</option>
+    </select>
     <br><br>
-    <label for="surname">Surname</label>
-    <input name="surname" type="text" th:field="*{surname}" id="surname">
-    <br><br>
-    <label for="department">Department</label>
-    <input name="department" type="text" th:field="*{department}" id="department">
-    <br><br>
-    <label for="salary">Salary</label>
-    <input name="salary" type="text" th:field="*{salary}" id="salary">
-    <br><br>
-    <input type="submit" value="OK"/>
+    <input type="submit" class="btn btn-success" value="Add new User"/>
 </form>
-<br><br>
-<a href="/logout">Logout</a>
-</html>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>

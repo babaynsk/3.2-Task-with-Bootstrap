@@ -9,19 +9,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.kata.spring.boot_security.demo.service.MyUserService;
+import ru.kata.spring.boot_security.demo.service.MyUserServicelmpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, MyUserService myUserService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, MyUserServicelmpl myUserServicelmpl) {
         this.successUserHandler = successUserHandler;
-        this.myUserService = myUserService;
+        this.myUserServicelmpl = myUserServicelmpl;
     }
 
-    private final MyUserService myUserService;
+    private final MyUserServicelmpl myUserServicelmpl;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
-        authenticationManagerBuilder.userDetailsService(myUserService)
+        authenticationManagerBuilder.userDetailsService(myUserServicelmpl)
                 .passwordEncoder(getPasswordEncoder());
     }
 

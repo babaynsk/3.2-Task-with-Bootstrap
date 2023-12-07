@@ -1,50 +1,16 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.dao.UserDAOlmpl;
 import ru.kata.spring.boot_security.demo.model.User;
 
-
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class MyUserService implements UserDetailsService {
-    private UserDAOlmpl userDAOlmpl;
-
-    @Autowired
-    public MyUserService(UserDAOlmpl userDAOlmpl) {
-        this.userDAOlmpl=userDAOlmpl;
-    }
-
-    @Transactional
-    public List<User> findAll(){
-        return userDAOlmpl.getAllUsers();
-    }
-
-    @Transactional
-    public User findById(int id){
-        return userDAOlmpl.getUserById(id);
-    }
-
-    @Transactional
-    public void save(User user){
-        userDAOlmpl.saveUser(user);
-    }
-
-    @Transactional
-    public void deleteById(int id){
-        userDAOlmpl.delete(id);
-    }
-
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDAOlmpl.findByUsername(username);
-    }
+public interface MyUserService extends UserDetailsService {
+     List<User> findAll();
+     User findById(int id);
+     void save(User user);
+     void deleteById(int id);
+     @Override
+     UserDetails loadUserByUsername(String username);
 }

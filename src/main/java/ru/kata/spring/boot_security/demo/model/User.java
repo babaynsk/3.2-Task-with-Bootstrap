@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -21,18 +22,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "surname")
-    private String surname;
-    @Column(name = "department")
-    private String department;
-    @Column(name = "salary")
-    private int salary;
-
+    @Column(name = "firstname")
+    private String firstName;
+    @Column(name = "lastname")
+    private String lastName;
+    @Column(name = "age")
+    private int age;
+    @Column(name = "email")
+    private String email;
     @Column(name = "username")
     private String username;
-
     @Column(name = "password")
     private String password;
 
@@ -40,51 +39,42 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "roles_id"))
     @Fetch(FetchMode.JOIN)
-    private Set<Role> roles;
+    private List<Role> roles;
 
     public User() {
     }
 
-    public User(String name , String surname , String department , int salary ){
-        this.name=name;
-        this.surname=surname;
-        this.department=department;
-        this.salary=salary;
+    public User(String firstName , String lastName , String email , int age ){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.age=age;
+        this.email=email;
     }
 
-    public User(int id, String name, String surname, String department, int salary){
+    public User(int id, String firstName, String lastName, String email, int age){
         this.id=id;
-        this.name=name;
-        this.surname=surname;
-        this.department=department;
-        this.salary=salary;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
+        this.age=age;
     }
 
-    public User(int id,String name, String surname, String department, int salary,String username,String password){
+    public User(int id,String firstName, String lastName, String email, int age,List<Role> roles,String password){
         this.id=id;
-        this.name=name;
-        this.surname=surname;
-        this.department=department;
-        this.salary=salary;
-        this.username=username;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.email=email;
+        this.age=age;
+        this.roles=roles;
         this.password=password;
     }
 
-    public User(int id,String name, String surname, String department, int salary,String username,String password,String role){
-        this.id=id;
-        this.name=name;
-        this.surname=surname;
-        this.department=department;
-        this.salary=salary;
-        this.username=username;
-        this.password=password;
-    }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 
@@ -101,12 +91,13 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @Override
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username){
+        this.username=username;
     }
 
     @Override
@@ -129,8 +120,8 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId() {
@@ -141,45 +132,49 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getDepartment() {
-        return department;
+    public int getAge() {
+        return age;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public int getSalary() {
-        return salary;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSalary(int salary) {
-        this.salary = salary;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
 
     @Override
     public String toString() {
-        return
-                "Your id=" + id + "\n" +
-                "Your name='" + name + '\'' + "\n"+
-                "Your surname='" + surname + '\'' +"\n" +
-                "Your department='" + department + '\'' + "\n" +
-                "Your salary=" + salary;
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

@@ -14,6 +14,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Column(name = "authority")
     private String authority;
+
     public Role(String authority) {
         this.authority = authority;
     }
@@ -42,6 +43,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return authority;
+        return authority.substring(5);
     }
 }

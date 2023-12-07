@@ -21,7 +21,7 @@ public class UserDAOlmpl implements UserDAO {
 
     @Override
     public void saveUser(User user) {
-        entityManager.persist(user);
+        entityManager.merge(user);
     }
 
     @Override
@@ -42,6 +42,8 @@ public class UserDAOlmpl implements UserDAO {
 
     @Override
     public User findByUsername(String username) {
-        return entityManager.createQuery("select user from User user where user.username =: username", User.class).getSingleResult();
+        return entityManager.createQuery("select user from User user where user.username =:username", User.class)
+                .setParameter("username", username)
+                .getSingleResult();
     }
 }
