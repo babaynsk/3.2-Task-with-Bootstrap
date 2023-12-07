@@ -7,10 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.MyUserServicelmpl;
-import ru.kata.spring.boot_security.demo.service.RoleServicelmpl;
 
 import java.util.List;
 
@@ -18,13 +16,11 @@ import java.util.List;
 public class UsersController {
 
     private final MyUserServicelmpl userService;
-    private final RoleServicelmpl roleService;
 
 
     @Autowired
-    public UsersController(MyUserServicelmpl userService, RoleServicelmpl roleService) {
+    public UsersController(MyUserServicelmpl userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @GetMapping("/admin")
