@@ -11,13 +11,10 @@ import java.util.List;
 @RequestMapping("/api")
 public class UsersRESTController {
     private final MyUserServicelmpl userService;
-    private final RoleServicelmpl roleService;
-
 
     @Autowired
-    public UsersRESTController(MyUserServicelmpl userService, RoleServicelmpl roleService) {
+    public UsersRESTController(MyUserServicelmpl userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @GetMapping("/allUsers")
