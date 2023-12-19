@@ -139,6 +139,13 @@
                                             <div class="form-group">
                                                 <label
                                                         class="row font-weight-bold justify-content-center"
+                                                        for="username">Username</label>
+                                                <input th:name="username" th:type="text" class="form-control"
+                                                       th:value="${user.username}" id="username" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label
+                                                        class="row font-weight-bold justify-content-center"
                                                         for="password">Password</label>
                                                 <input th:name="password" th:type="text"
                                                        class="form-control" th:value="${user.password}"
@@ -218,6 +225,13 @@
                                                         for="email">Email</label>
                                                 <input th:name="email" th:type="text" class="form-control"
                                                        th:value="${user.email}" id="email_delete" readonly />
+                                            </div>
+                                            <div class="form-group">
+                                                <label
+                                                        class="row font-weight-bold justify-content-center"
+                                                        for="userName">Email</label>
+                                                <input th:name="userName" th:type="text" class="form-control"
+                                                       th:value="${user.username}" id="userName_delete" readonly />
                                             </div>
                                             <div class="form-group">
                                                 <label
