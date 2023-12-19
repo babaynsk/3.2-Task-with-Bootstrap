@@ -4,6 +4,7 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,9 @@ public class UsersController {
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String newCodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(newCodedPassword);
         userService.save(user);
         return "redirect:/admin";
     }
